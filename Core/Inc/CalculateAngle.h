@@ -23,6 +23,10 @@ typedef struct _Angle{
 	float ComFilt_pitch;
 	float ComFilt_yaw;
 
+	float KalmFilt_roll;
+	float KalmFilt_pitch;
+	float KalmFilt_yaw;
+
 }Struct_Angle;
 
 
@@ -31,6 +35,25 @@ extern Struct_Angle Angle;
 void CalculateAccAngle(Struct_Angle* Angle, Struct_MPU6050* MPU6050);
 void CalculateGyroAngle(Struct_Angle* Angle, Struct_MPU6050* MPU6050);
 void CalculateCompliFilter(Struct_Angle* Angle, Struct_MPU6050* MPU6050);
+
+
+
+
+/*ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡKalman Filterㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+
+// Kalman structure
+typedef struct
+{
+    float Q_angle;
+    float Q_bias;
+    float R_measure;
+    float angle;
+    float bias;
+    float P[2][2];
+} Kalman_t;
+
+void CalculateKalmanFilter(Struct_Angle* Angle, Struct_MPU6050* MPU6050);
+float Kalman_getAngle(Kalman_t *Kalman, float newAngle, float newRate, float dt);
 
 
 #ifdef __cplusplus

@@ -136,13 +136,10 @@ int main(void)
 		{
 			MPU6050_Get6AxisRawData(&MPU6050);
 			MPU6050_DataConvert(&MPU6050);
-//			CalculateAccAngle(&Angle, &MPU6050);
-//			printf("%f, %f, %f\n", Angle.acc_roll, Angle.acc_pitch, Angle.acc_yaw);
-//			CalculateGyroAngle(&Angle, &MPU6050);
-//			printf("%f, %f, %f\n", Angle.gyro_roll,Angle.gyro_pitch,Angle.gyro_yaw);
-			CalculateCompliFilter(&Angle, &MPU6050);
-			printf("%f, %f, %f\n", Angle.ComFilt_roll,Angle.ComFilt_pitch,Angle.ComFilt_yaw);
 
+
+			CalculateKalmanFilter(&Angle, &MPU6050);
+			printf("%f, %f\n", Angle.KalmFilt_roll,Angle.KalmFilt_pitch);
 		}
 
 
